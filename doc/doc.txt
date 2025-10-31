@@ -1,0 +1,60 @@
+Projet :
+GameScore
+
+1 Présentation Générale
+GameScore est une plateforme web inspirée du concept de Rotten Tomatoes, mais dédiée aux jeux vidéo. Elle permet aux utilisateurs de consulter, noter et commenter les jeux, tout en visualisant un score global provenant des critiques professionnelles et du public.
+
+2 Objectifs du Site
+    • Proposer une base de données complète de jeux vidéo (toutes plateformes).
+    • Offrir un système de notation duale : critique / joueurs.
+    • Permettre aux utilisateurs d’échanger des avis, critiques et recommandations.
+    • Offrir une interface moderne, intuitive et responsive.
+    • Mettre en avant les tendances et nouveautés du moment.
+
+3 Public Cible
+Les joueurs de tous âges, amateurs comme passionnés, ainsi que les journalistes et créateurs de contenu souhaitant partager leurs critiques.
+
+4 Fonctionnalités Principales
+    • Page d’accueil présentant les jeux tendances et les mieux notés.
+    • Fiche détaillée pour chaque jeu avec synopsis, médias, scores et critiques.
+    • Système de notation à double score (critique / joueur).
+    • Recherche et filtrage par genre, plateforme, popularité, date.
+    • Espace membre avec profil, historique de notation et favoris.
+    • Tableau de bord administrateur (gestion des jeux, utilisateurs et contenus).
+
+
+5 Design & Identité Visuelle
+Le design sera minimaliste, moderne, avec une influence subtile du monde du jeu vidéo. Palette de couleurs : tons sombres (gris, noir, bleu foncé) avec quelques touches de couleur vive pour les scores et boutons d’action. Typographie sans-serif moderne.
+
+6 Architecture Technique
+• Backend : Golang (API RESTful, gestion des données, sécurité, authentification).
+• Frontend : ReactJS ou HTML/CSS/JS selon le scope du projet.
+• Base de données : PostgreSQL ou MongoDB.
+• Hébergement : Docker + Serveur cloud (AWS, GCP ou autre).
+• CI/CD : GitHub Actions pour automatisation des tests et déploiement.
+
+
+7 Structure des Pages Principales
+    • Accueil : mise en avant des meilleurs jeux, critiques récentes.
+    • Catalogue : recherche, tri et filtrage.
+    • Fiche Jeu : détails, images, score global, avis utilisateurs.
+    • Actualités : liste d’articles et critiques rédigées.
+    • Profil Utilisateur : paramètres, favoris, critiques postées.
+    • Admin Dashboard : gestion du contenu et des utilisateurs.
+8 Plan d’Évolution
+Phase 1 : MVP avec système de notation et fiches de jeux.
+Phase 2 : Ajout des profils utilisateurs et du tableau de bord admin.
+Phase 3 : Intégration d’un système de recommandations et d’API externes (Steam, IGDB).
+
+9 Durée de conception
+
+Conception devrais durée environ 5 à 6 mois. Pris en considération des projets à côté du campus et de la marge d’erreur.
+
+Résumée
+GameScore est une plateforme web moderne inspirée de Rotten Tomatoes, mais centrée sur les jeux vidéo. Elle propose un système de notation et de critiques pour les joueurs et les professionnels.
+• Backend : Golang (API REST)
+• Frontend : ReactJS ou HTML/CSS/JS
+• Style : sobre, moderne, avec une légère touche gamer.
+• Pages clés : Accueil, Catalogue, Fiche Jeu, Actualités, Profil, Admin.
+Objectif : devenir une référence communautaire et critique pour le jeu vidéo, offrant transparence, simplicité et interactivité.
+Alexandre Petitfrère
