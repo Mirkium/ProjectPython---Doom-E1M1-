@@ -1,19 +1,10 @@
-# main.py
-# ==============================================
-# Menu principal pour le projet DOOM (E1M1) – Python / Pygame
-# Inspiré de DOOM 1993 / DOOM 2016
-# ==============================================
-
 import pygame
 import sys
+from script.constante import WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE
+from script.menu.lvl1 import lvl1
+from script.menu.utils import close
 
-# --- Configuration de la fenêtre ---
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-WINDOW_TITLE = "DOOM (E1M1) - Menu Principal"
-
-def main():
-    # Initialisation de Pygame
+def menu():
     pygame.init()
     pygame.mixer.init()  # pour le son
 
@@ -24,11 +15,11 @@ def main():
 
     # --- Chargement des ressources ---
     try:
-        background = pygame.image.load("../assets/img/Doom_Logo.png")
-        background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        menu_bg = pygame.image.load("assets/img/Doom_Logo.png")
+        menu_bg = pygame.transform.scale(menu_bg, (WINDOW_WIDTH, WINDOW_HEIGHT))
     except:
         print("⚠️  Impossible de charger l'image 'menu_background.png'. Vérifie le dossier assets.")
-        background = None
+        menu_bg = None
 
     try:
         pygame.mixer.music.load("assets/doom_theme.mp3")
@@ -45,25 +36,24 @@ def main():
     prompt_text = font_prompt.render("Appuyez sur [ENTRÉE] pour commencer", True, (200, 200, 200))
     quit_text = font_prompt.render("Appuyez sur [ECHAP] pour quitter", True, (200, 200, 200))
 
-    running = True
-    while running:
+    running = {'menu': True, 'lvl1': False, 'pause': False}
+
+    while running['menu']:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-
+                close(running)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     print("🚀 Lancement du jeu...")
-                    # Ici tu lanceras ton code du jeu principal (ex: start_game())
-                    running = False
+                    running['lvl1'] = True
+                    lvl1(screen, running)
                 elif event.key == pygame.K_ESCAPE:
-                    running = False
+                    running['menu'] = False
 
         # --- Affichage ---
-        if background:
-            screen.blit(background, (0, 0))
-        else:
+        if menu_bg:
             screen.fill((20, 20, 20))
+            screen.blit(menu_bg, (0, 0))
 
         # Affichage du texte
         screen.blit(title_text, (WINDOW_WIDTH // 2 - title_text.get_width() // 2, 150))
@@ -78,7 +68,3 @@ def main():
     pygame.mixer.music.stop()
     pygame.quit()
     sys.exit()
-
-
-if __name__ == "__main__":
-    main()
