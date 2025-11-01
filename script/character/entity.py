@@ -15,3 +15,7 @@ class entity:
 
     def fire(self):
         pass #same XD    peut etre joidre les deux
+
+    def dead(self):
+        if life == 0:
+            print("U're dead")  #a override dans les classes filles
