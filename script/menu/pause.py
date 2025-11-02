@@ -1,24 +1,21 @@
 import pygame
-import sys
-from script.constante import WINDOW_WIDTH, WINDOW_HEIGHT
-from script.menu.utils import close
+from script.menu.utils import load_pic_BG, refresh
 
-def pause(screen, running):
-    pause_bg = pygame.image.load("assets/sprites/zombie/Zombie.png")
-    pause_bg = pygame.transform.scale(pause_bg, (WINDOW_WIDTH, WINDOW_HEIGHT))
-    clock = pygame.time.Clock()
+def pause(screen, clock):
+    pause_bg = load_pic_BG(screen, "assets/sprites/zombie/Zombie.png")
+
+    running_pause = True
     
-    while running['pause']:
+    while running_pause:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                close(running)
+                return "quit"
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running['pause'] = False
+                    return "menu"
                 elif event.key == pygame.K_RETURN:
-                    running['lvl1'] = True
-                    running['pause'] = False
+                    return "lvl1"
 
         screen.blit(pause_bg, (0, 0))
-        pygame.display.flip()
-        clock.tick(60)
+        
+        refresh(clock)

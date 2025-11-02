@@ -4,10 +4,10 @@
 # Inspiré de DOOM 1993 / DOOM 2016
 # ==============================================
 
-from script.menu.menu import menu
+from script.menu.engine import engine
 
 def main():
-   menu()
+   engine()
 
 if __name__ == "__main__":
     main()
