@@ -1,14 +1,15 @@
-class entity:
-    def entity(self, name:str, speed:int, life:int):
+class Entity:
+    def __init__(self, name:str, speed:int, life:int, position:list[int]):
         self.name = name
         self.speed = speed
         self.life = life
+        self.position = position
 
     def vision(self):
         pass #def le champ visuel
 
     def apperance(self):
-        pass #load image charac 
+        pass 
 
     def getDamages(self):
         pass #explicite lmao
