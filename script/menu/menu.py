@@ -1,17 +1,15 @@
 import pygame
 from script.menu.utils import load_pic_BG, refresh
 from script.menu.bouton import Bouton
+from script.menu.config import Screen
 
 def menu(screen, clock):
     menu_bg = load_pic_BG(screen, "assets/img/doommenu.png")
 
     boutons = [
-        Bouton("Jouer", (screen.get_width()//2, 300), key=pygame.K_RETURN),
-        Bouton("Quitter", (screen.get_width()//2, 400), key=pygame.K_ESCAPE)
+        Bouton("Jouer",'assets/img/newgame.png', (screen.get_width()//2, 500), Screen.WIDTH/7, Screen.HEIGHT/13),
+        Bouton("Quitter",'assets/img/quitgame.png', (screen.get_width()//2, 700), Screen.WIDTH/7, Screen.HEIGHT/13)
     ]
-
-    selected_index = 0
-    boutons[selected_index].selected = True
 
     running_menu = True
 
@@ -22,19 +20,10 @@ def menu(screen, clock):
                 return "quit"
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    boutons[selected_index].selected = False
-                    selected_index = (selected_index + 1) % len(boutons)
-                    boutons[selected_index].selected = True
-                elif event.key == pygame.K_UP:
-                    boutons[selected_index].selected = False
-                    selected_index = (selected_index - 1) % len(boutons)
-                    boutons[selected_index].selected = True
+                if event.key == pygame.K_ESCAPE:
+                    return "quit"
                 elif event.key == pygame.K_RETURN:
-                    if boutons[selected_index].text == "Jouer":
-                        return "lvl1"
-                    elif boutons[selected_index].text == "Quitter":
-                        return "quit"
+                    return "lvl1"
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:

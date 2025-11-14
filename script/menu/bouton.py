@@ -1,25 +1,20 @@
 import pygame
+from script.menu.utils import load_pic
 
 class Bouton:
-    def __init__(self, text, position, key=None, font=None, size=40):
+    def __init__(self,text, image_path, position, width, height):
         self.text = text
-        self.position = position
-        self.key = key 
-        self.font = font or pygame.font.SysFont("Arial", size)
-        self.color_normal = (255, 255, 255)
-        self.color_hover = (255, 200, 0)
-        self.selected = False
-        self.rect = None
-        self.render_text()
+        self.image_normal = load_pic(image_path, width, height)
+        self.image_hover = self.image_normal.copy()
+        self.image_hover.fill((50, 50, 50, 50), special_flags=pygame.BLEND_RGBA_ADD)
 
-    def render_text(self):
-        color = self.color_hover if self.selected else self.color_normal
-        self.image = self.font.render(self.text, True, color)
-        self.rect = self.image.get_rect(center=self.position)
+        self.image = self.image_normal
+        self.position = position
+        self.rect = self.image.get_rect(center=position)
+        self.selected = False
 
     def draw(self, screen):
-        self.render_text()
-        screen.blit(self.image, self.rect)
+        screen.blit(self.image_hover if self.selected else self.image_normal, self.rect)
 
     def is_hovered(self, mouse_pos):
         return self.rect.collidepoint(mouse_pos)
