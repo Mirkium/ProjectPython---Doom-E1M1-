@@ -1,7 +1,7 @@
 import pygame
 import os
 import sys
-from script.constante import WINDOW_WIDTH, WINDOW_HEIGHT
+from script.menu.config import Screen
 
 def close():
     pygame.quit()
@@ -14,7 +14,7 @@ def load_pic_BG(screen, image):
         full_path = os.path.join(base_path, image)
 
         bg = pygame.image.load(full_path).convert_alpha()
-        bg = pygame.transform.scale(bg, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        bg = pygame.transform.scale(bg, (Screen.WIDTH, Screen.HEIGHT))
         return bg
     except Exception as e:
         print("Impossible de charger l'image. Vérifie le dossier assets.")
