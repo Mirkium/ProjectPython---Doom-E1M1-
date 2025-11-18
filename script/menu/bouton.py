@@ -11,10 +11,10 @@ class Bouton:
         self.image = self.image_normal
         self.position = position
         self.rect = self.image.get_rect(center=position)
-        self.selected = False
+        self.hovered = False
 
     def draw(self, screen):
-        screen.blit(self.image_hover if self.selected else self.image_normal, self.rect)
+        screen.blit(self.image_hover if self.hovered else self.image_normal, self.rect)
 
-    def is_hovered(self, mouse_pos):
-        return self.rect.collidepoint(mouse_pos)
+    def update_hover(self, mouse_pos):
+        self.hovered = self.rect.collidepoint(mouse_pos)

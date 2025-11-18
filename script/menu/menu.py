@@ -7,39 +7,41 @@ def menu(screen, clock):
     menu_bg = load_pic_BG(screen, "assets/img/doommenu.png")
 
     boutons = [
-        Bouton("Jouer",'assets/img/newgame.png', (screen.get_width()//2, 500), Screen.WIDTH/7, Screen.HEIGHT/13),
-        Bouton("Quitter",'assets/img/quitgame.png', (screen.get_width()//2, 700), Screen.WIDTH/7, Screen.HEIGHT/13)
+        Bouton("Jouer", "assets/img/newgame.png",
+               (screen.get_width()//2, 500), Screen.WIDTH/7, Screen.HEIGHT/13),
+
+        Bouton("Quitter", "assets/img/quitgame.png",
+               (screen.get_width()//2, 700), Screen.WIDTH/7, Screen.HEIGHT/13)
     ]
 
-    running_menu = True
-
-    while running_menu:
+    while True:
         mouse_pos = pygame.mouse.get_pos()
+
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 return "quit"
 
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return "quit"
-                elif event.key == pygame.K_RETURN:
-                    return "lvl1"
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    for bouton in boutons:
-                        if bouton.is_hovered(mouse_pos):
-                            if bouton.text == "Jouer":
-                                return "lvl1"
-                            elif bouton.text == "Quitter":
-                                return "quit"
+                if event.key == pygame.K_RETURN:
+                    hovered = next((b for b in boutons if b.hovered),
+                                   next(b for b in boutons if b.text == "Jouer"))
 
-        for i, bouton in enumerate(boutons):
-            bouton.selected = bouton.is_hovered(mouse_pos)
+                    return "lvl1" if hovered.text == "Jouer" else "quit"
+
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                for b in boutons:
+                    if b.hovered:
+                        return "lvl1" if b.text == "Jouer" else "quit"
+
+        for b in boutons:
+            b.update_hover(mouse_pos)
 
         screen.blit(menu_bg, (0, 0))
-
-        for bouton in boutons:
-            bouton.draw(screen)
+        for b in boutons:
+            b.draw(screen)
 
         refresh(clock)
