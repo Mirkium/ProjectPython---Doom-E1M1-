@@ -1,27 +1,65 @@
+from script.map.setting import *
+import pygame as pg
+import math
 
-    global player_x, player_y, player_angle
-    dx, dy = 0, 0
-
-    # Avancer / Reculer
-    if keys[pygame.K_z]:
-        dx += math.cos(player_angle) * PLAYER_SPEED
-        dy += math.sin(player_angle) * PLAYER_SPEED
-    if keys[pygame.K_s]:
-        dx -= math.cos(player_angle) * PLAYER_SPEED
-        dy -= math.sin(player_angle) * PLAYER_SPEED
-
-    # Strafe gauche / droite
-    if keys[pygame.K_q]:
-        dx += math.cos(player_angle - math.pi/2) * PLAYER_SPEED
-        dy += math.sin(player_angle - math.pi/2) * PLAYER_SPEED
-    if keys[pygame.K_d]:
-        dx += math.cos(player_angle + math.pi/2) * PLAYER_SPEED
-        dy += math.sin(player_angle + math.pi/2) * PLAYER_SPEED
-
-    # Collision simple avec les murs
-    new_x = player_x + dx
-    new_y = player_y + dy
-    if map_data[int(player_y / TILE_SIZE)][int(new_x / TILE_SIZE)] == 0:
-        player_x = new_x
-    if map_data[int(new_y / TILE_SIZE)][int(player_x / TILE_SIZE)] == 0:
-        player_y = new_y
+class Player:
+    def __init__(self, game):
+        self.game = game
+        self.x, self.y = PLAYER_POS
+        self.angle = PLAYER_ANGLE
+        
+    def movement(self):
+        sin_a = math.sin(self.angle)
+        cos_a = math.cos(self.angle)
+        dx, dy = 0, 0
+        speed = PLAYER_SPEED * self.game.delta_time
+        speed_sin = speed * sin_a
+        speed_cos = speed * cos_a
+        
+        keys = pg.key.get_pressed()
+        if keys[pg.K_z]:
+            dx += speed_cos
+            dy += speed_sin
+        if keys[pg.K_s]:
+            dx += -speed_cos
+            dy += -speed_sin
+        if keys[pg.K_q]:
+            dx += speed_sin
+            dy += -speed_cos
+        if keys[pg.K_d]:
+            dx += -speed_sin
+            dy += speed_cos
+            
+        self.check_wall_collision(dx, dy)
+        
+        if keys[pg.K_LEFT]:
+            self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
+        if keys[pg.K_RIGHT]:
+            self.angle += PLAYER_ROT_SPEED * self.game.delta_time
+        self.angle %= math.tau
+    
+    def check_wall(self, x, y):
+        return (x, y) not in self.game.map.world_map
+    
+    def check_wall_collision(self, dx, dy):
+        if self.check_wall(int(self.x + dx), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy)):
+            self.y += dy
+        
+    def draw(self):
+        #pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
+        #             (self.x * 100 + WIDTH * math.cos(self.angle),
+        #              self.y * 100 + WIDTH * math.sin(self.angle)), 2)
+        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
+        
+    def update(self):
+        self.movement()
+        
+    @property
+    def pos(self):
+        return self.x, self.y
+    
+    @property
+    def map_pos(self):
+        return int(self.x), int(self.y)
