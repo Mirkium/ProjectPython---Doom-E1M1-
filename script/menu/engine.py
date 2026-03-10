@@ -4,6 +4,7 @@ from script.menu.utils import close
 from script.menu.menu import menu
 from script.menu.lvl1 import lvl1
 from script.menu.pause import pause
+from script.menu.gameover import gameover
 
 def engine():
     pygame.init()
@@ -22,6 +23,8 @@ def engine():
                 state = lvl1(screen, clock)
             case "pause":
                 state = pause(screen, clock)
+            case "gameover":
+                state = gameover(screen, clock)
             case "quit":
                 running = False
             case _:
