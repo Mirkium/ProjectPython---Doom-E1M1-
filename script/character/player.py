@@ -9,8 +9,8 @@ class Player:
         self.angle = PLAYER_ANGLE
         
     def movement(self):
-        sin_a = math.sin(self.angle)
-        cos_a = math.cos(self.angle)
+        sin_a = math.sin(self.angle) # 1
+        cos_a = math.cos(self.angle) # != 0
         dx, dy = 0, 0
         speed = PLAYER_SPEED * self.game.delta_time
         speed_sin = speed * sin_a
@@ -20,6 +20,10 @@ class Player:
         if keys[pg.K_z]:
             dx += speed_cos
             dy += speed_sin
+            print("cos : ", cos_a)
+            print("sin : ", sin_a)
+            print(speed)
+            print("cos : ", dx ," / sin : ", dy)
         if keys[pg.K_s]:
             dx += -speed_cos
             dy += -speed_sin
