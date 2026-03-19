@@ -3,6 +3,8 @@ import sys
 from script.constante import WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE
 from script.menu.lvl1 import lvl1
 from script.menu.utils import close
+from script.sound.sound import *
+from GameManager import *
 
 def menu():
     pygame.init()
@@ -44,9 +46,10 @@ def menu():
                 close(running)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    game = Game()
                     print("🚀 Lancement du jeu...")
-                    running['lvl1'] = True
-                    lvl1(screen, running)
+                    play_music_loop("./assets/sound/03. E1M1 - At Doom's Gate.mp3")
+                    game.run()
                 elif event.key == pygame.K_ESCAPE:
                     running['menu'] = False
 
